@@ -1,0 +1,16 @@
+Student,Feedback_Type,Topic,Feedback
+Student_1,Neutral,SQL,"You are doing fine in SQL, but try focusing more on practicing exercises."
+Student_2,Negative,Regression Analysis,"Your submissions on Regression Analysis are missing key sections, and you need to review the basics."
+Student_3,Positive,Regression Analysis,Excellent effort in applying Regression Analysis concepts to real problems!
+Student_4,Negative,SQL,You need to participate more actively in SQL activities to strengthen your understanding.
+Student_5,Positive,AB Testing,Your coding practices in AB Testing are clean and efficient. Keep up the great work!
+Student_6,Negative,NumPy,You need to participate more actively in NumPy activities to strengthen your understanding.
+Student_7,Negative,Data Visualization,Your understanding of Data Visualization concepts is weak. Please revisit the lecture notes.
+Student_8,Positive,NumPy,Your coding practices in NumPy are clean and efficient. Keep up the great work!
+Student_9,Negative,Python Basics,"Your submissions on Python Basics are missing key sections, and you need to review the basics."
+Student_10,Positive,Machine Learning,Your coding practices in Machine Learning are clean and efficient. Keep up the great work!
+Student_11,Neutral,SQL,"Good work so far in SQL, but consistency in practicing challenges is key."
+Student_12,Negative,Regression Analysis,You need to participate more actively in Regression Analysis activities to strengthen your understanding.
+Student_13,Neutral,Python Basics,"You’re making steady progress in Python Basics, but solving more real-world case studies will help."
+Student_14,Neutral,SQL,"You are doing fine in SQL, but try focusing more on practicing exercises."
+Student_15,Positive,SQL,Your coding practices in SQL are clean and efficient. Keep up the great work!
