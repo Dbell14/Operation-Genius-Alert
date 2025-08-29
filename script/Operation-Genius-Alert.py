@@ -21,7 +21,7 @@ for pkg in packages:
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
     except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to install {pkg}: {e}")
+        print(f"Failed to install {pkg}: {e}")
 
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -147,7 +147,6 @@ first_result = results[0]
 first_result.model_dump()
 
 # Generate student study feedback from instructors
-
 import csv
 import random
 
@@ -179,6 +178,7 @@ neutral_feedback = [
     "Consider setting aside 30 minutes daily to review {} alongside new topics.",
     "Good work so far in {}, but consistency in practicing challenges is key."
 ]
+
 # Feedback types
 feedback_types = ["Positive", "Negative", "Neutral"]
 # Generate feedback for 15 students
@@ -199,6 +199,7 @@ for student in students:
         "Topic": topic,
         "Feedback": feedback
     })
+
 # Save to CSV
 filename = "student_feedback.csv"
 with open(filename, mode="w", newline="", encoding="utf-8") as file:
