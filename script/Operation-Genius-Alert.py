@@ -1,49 +1,42 @@
-#!/usr/bin/env python
-# coding: utf-8
+import subprocess
+import sys
 
-# In[2]:
+# list of required packages
+packages = [
+    "python-dotenv",          
+    "tf-keras",              
+    "faiss-cpu",
+    "sentence-transformers",
+    "transformers",
+    "tensorflow",
+    "pymupdf4llm",
+    "openai",
+    "langchain-community",
+    "pypdf",
+    "langchain-huggingface"
+]
 
+# install each one if missing
+for pkg in packages:
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Failed to install {pkg}: {e}")
 
 from openai import OpenAI
 from dotenv import load_dotenv
 import pymupdf4llm
-
 import faiss
-
 from sentence_transformers import SentenceTransformer
 import os
 
+# Load environment variables
 
 load_dotenv(override=True)
-
-
-# In[3]:
-
-
-get_ipython().system('pip install dotenv')
-
-
-# In[4]:
-
-
-get_ipython().system('pip install tf_keras')
-get_ipython().system('pip install faiss-cpu sentence-transformers transformers tensorflow')
-get_ipython().system('pip install pymupdf4llm')
-
-
-
-# In[30]:
-
-
 api_key = os.getenv("OPENAI_API_KEY")
-
-
 client = OpenAI(api_key=api_key)
 
-
-# In[37]:
-
-
+# Return tasks based on student feedback
 def get_tasks(text: str) -> str:
     """
     Finds a task for a student based on student's feedback on the help they need for specific topics
@@ -75,18 +68,14 @@ def get_tasks(text: str) -> str:
     print(output)
     return output
 
-
-# In[38]:
-
-
+# Example Usage
 response = get_tasks('I need help with Bayes Theorem')
 print(response)
 
 
-# In[ ]:
-
-
 data = "."
+
+# Generate tags for data
 def get_tags(text: str) -> str:
     """
     Finds tags for the requested topic in data science
@@ -110,7 +99,8 @@ def get_tags(text: str) -> str:
     )
 
     output = completion.choices[0].message.content.strip()
-    #print(output)
+    
+    #print (output)
     return output
 
 get_tags("AB Testing")
@@ -118,48 +108,18 @@ updated_tags = get_tags('AB Testing')
 print(updated_tags)
 
 
-# In[34]:
-
-
 updated_tags = updated_tags.replace("\n","")
 
-
-# In[9]:
-
-
-get_ipython().system('python -m pip install langchain-community')
-
-
-# In[35]:
-
-
+# Load PDFs
 from pathlib import Path
 
 ROOT = Path().resolve().parent
 slides = ROOT / "data"
 
-
-
-
-# In[11]:
-
-
-get_ipython().system('pip install pypdf')
-
-
-# In[12]:
-
-
+# Embeddings + Vectorstore
 from langchain_community.document_loaders import PyPDFLoader
-
 from langchain_community.vectorstores import FAISS
-
 from langchain_huggingface import HuggingFaceEmbeddings
-
-
-
-# In[36]:
-
 
 documents = []
 
@@ -172,16 +132,6 @@ documents
 
 
 
-
-# In[14]:
-
-
-get_ipython().system('pip install langchain-huggingface')
-
-
-# In[26]:
-
-
 embedder = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 db = FAISS.from_documents(documents, embedder)
 
@@ -189,29 +139,18 @@ db = FAISS.from_documents(documents, embedder)
 retriever = db.as_retriever(search_kw={"k":5})
 
 
-# In[27]:
-
-
 results = retriever.invoke("Bayes Theorem")
-
-
-# In[28]:
 
 
 first_result = results[0]
 
-
-# In[29]:
-
-
 first_result.model_dump()
 
-
-# In[39]:
-
+# Generate student study feedback from instructors
 
 import csv
 import random
+
 # Topics to base feedback on
 topics = [
     "Python Basics", "NumPy", "Pandas", "Data Visualization",
